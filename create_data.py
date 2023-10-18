@@ -15,7 +15,7 @@ from string import ascii_letters, punctuation, digits
 from transformers import AutoTokenizer
 from tqdm import tqdm
 import sys
-from NLP.src.generate_spelling_Vietnamesetext.generate_error import add_noise
+from generate_error import add_noise
 import warnings
 
 
@@ -180,10 +180,14 @@ def generate(text_line):
             new_line = remove_punctuation(new_line)
         else:
             new_line = line
-        print(new_line)
-        noise_text.append(new_line)  
+
+        if len(new_line)==0: continue
+        else:
+            noise_text.append(new_line)  
     with open('noise_text.txt', 'w', encoding='utf-8') as file:
         file.write('\n'.join(noise_text))
+
+    print("Generate Done")
     return noise_text  
 
 
